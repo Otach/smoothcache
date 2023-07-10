@@ -14,10 +14,14 @@ logger = logging.getLogger(__name__)
 
 class CacheSettings:
 
-    overwrite_on_dup_key = True
-    error_on_invalid_key = False
-    error_on_expired_entry = False
-    default_ttl = 3600
+    def __init__(self):
+        self.overwrite_on_dup_key = True
+        self.error_on_invalid_key = False
+        self.error_on_expired_entry = False
+        self.default_ttl = 3600
+
+    def get_settings(self):
+        return vars(self)
 
 
 class CacheController:
@@ -83,7 +87,6 @@ class CacheController:
         :raises EntryNotFoundError: when key doesn't exist and
         error_on_invalid_key = True
         """
-        logger.info(f"Getting cache entry '{key}'")
         try:
             with self._lock:
                 cache_result = self._cache[key]
@@ -162,4 +165,4 @@ class CacheResult:
         self.value = value
 
     def __repr__(self):
-        return f"<CacheEntry '{self.key}'>"
+        return f"<CacheResult '{self.key}'>"

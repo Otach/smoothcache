@@ -25,7 +25,7 @@ class TestSmoothCacheSet(unittest.TestCase):
         self.assertEqual(self.cache._cache["test key"].value, "new value")
 
     def test_set_override_exception(self):
-        self.cache.settings.overwrite_on_dup_key = False
+        self.cache.settings.error_on_dup_key = True
 
         self.cache.set("test key", "original value")
 

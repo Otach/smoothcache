@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class CacheSettings:
 
     def __init__(self):
-        self.overwrite_on_dup_key = True
+        self.error_on_dup_key = False
         self.error_on_invalid_key = False
         self.error_on_expired_entry = False
         self.default_ttl = 3600
@@ -52,7 +52,7 @@ class CacheController:
         logger.info(f"Inserting cache entry '{key}' with {value} ({ttl=})")
 
         with self._lock:
-            if not self.settings.overwrite_on_dup_key  \
+            if self.settings.error_on_dup_key  \
                     and key in self._cache.keys():
 
                 raise KeyAlreadyExistsError(

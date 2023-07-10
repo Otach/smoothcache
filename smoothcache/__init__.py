@@ -15,6 +15,9 @@ Cache = CacheController()
 def cache_function(ttl=None):
     """Cache the output of the decorated function.
 
+    This function decorator is experimental and may not
+    work as expected.
+
     .. attention:
         All parameters passed to a cached function MUST implement
         a `__hash__` function.

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import logging
+import copy
 from time import time
 from threading import Lock
 
@@ -59,7 +60,12 @@ class CacheController:
                     f"Cache with key '{key}' already exists in cache."
                 )
 
-            self._cache[key] = _CacheEntry(value, ttl)
+            # The copy here is to make sure the cache values cannot be modifed
+            #  after inserting into the cache. This is especially needed for immutable
+            #  types, i.e. lists
+            _value = copy.deepcopy(value)
+
+            self._cache[key] = _CacheEntry(_value, ttl)
 
         return
 

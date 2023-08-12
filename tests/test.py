@@ -58,6 +58,18 @@ class TestSmoothCacheSet(unittest.TestCase):
             59
         )
 
+    def test_immutable_value_set(self):
+        value = ["testing", 10]
+
+        self.cache.set("test key", value)
+
+        value[0] = "after-set"
+
+        res = self.cache.get("test key")
+
+        self.assertIsNotNone(res)
+        self.assertEqual(res.value, ["testing", 10])
+
 
 class TestSmoothCacheClear(unittest.TestCase):
 

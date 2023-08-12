@@ -9,11 +9,13 @@ pip install smoothcache
 ```
 
 ## Usage
-On import, the library creates a global cache object named `Cache` that you can interact with.
+Interacting with the cache is done using a `CacheController` object:
 
 ``` python
 
-from smoothcache import Cache
+from smoothcache import CacheController
+
+Cache = CacheController()
 
 Cache.set("cache key", "cache value")
 
